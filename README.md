@@ -17,6 +17,3 @@ Ensure Python is installed on your machine. Open your terminal, navigate to the 
 
 ```bash
 python main.py
-```
-
-redundant info
