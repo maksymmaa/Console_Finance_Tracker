@@ -1,0 +1,9 @@
+# PyCharm specific
+.idea/
+
+# Mac specific
+.DS_Store
+
+# Python specific
+__pycache__/
+*.py[cod]
