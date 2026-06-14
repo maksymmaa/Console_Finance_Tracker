@@ -1,48 +1,38 @@
-def add_purchase(purchase_consumptions, money_limit):
-    name = input('Please enter the name of the purchase: ')
-    price = float(input('Please enter the price of the purchase: '))
-    category = input('Please enter the category of the purchase: ')
-    print()
+def add_purchase(consumptions, limit, name, price, category):
+    current_total = sum_prices(consumptions)
 
-    current_total = sum_prices(purchase_consumptions)
-
-    if money_limit > 0 and (current_total + price > money_limit):
-        print(f'Operation denied! Limit: {money_limit}, Current: {current_total + price}\n')
+    if limit > 0 and (current_total + price > limit):
+        print(f'Operation denied! Limit: ${limit}, Current: ${current_total + price}\n')
         return
 
-    purchase_consumptions.append({
+    consumptions.append({
         'Name': name.capitalize(),
         'Price': price,
         'Category': category.capitalize()
     })
     print("Purchase added successfully!\n")
 
-def print_consumptions(purchase_consumptions):
-    if purchase_consumptions:
-        for dictionary in purchase_consumptions:
+def print_consumptions(consumptions):
+    if consumptions:
+        for dictionary in consumptions:
             for key, value in dictionary.items():
                 print(f'{key}: {value}')
             print()
     else:
-        print('There is no data in this structure!\n')
+        print('There are no purchases made yet!\n')
 
-def filter_by_category(purchase_consumptions):
+def filter_by_category(consumptions):
     filter_category = input('Please enter a category to filter consumptions: ')
     print()
-    categories = [dictionary['Category'] for dictionary in purchase_consumptions]
+    categories = [dictionary['Category'] for dictionary in consumptions]
 
     if filter_category.capitalize() in categories:
-        return list(filter(lambda d: d['Category'].lower() == filter_category.lower(), purchase_consumptions))
+        return list(filter(lambda d: d['Category'].lower() == filter_category.lower(), consumptions))
     else:
         return []
 
-def sum_prices(purchase_consumptions):
-    return sum([dictionary['Price'] for dictionary in purchase_consumptions])
-
-def set_limit():
-    limit = float(input('Please enter a limit you want to set: '))
-    print()
-    return limit
+def sum_prices(consumptions):
+    return sum([dictionary['Price'] for dictionary in consumptions])
 
 def main():
     consumptions = []
@@ -60,7 +50,11 @@ def main():
 
         match choice:
             case 1:
-                add_purchase(consumptions, limit)
+                name = input('Please enter the name of the purchase: ')
+                price = float(input('Please enter the price ($) of the purchase: '))
+                category = input('Please enter the category of the purchase: ')
+                print()
+                add_purchase(consumptions, limit, name, price, category)
             case 2:
                 print_consumptions(consumptions)
             case 3:
@@ -68,9 +62,10 @@ def main():
                 print_consumptions(filtered_consumptions)
             case 4:
                 total_sum = sum_prices(consumptions)
-                print(f"The price of all the purchases ({', '.join(str(dictionary['Price']) for dictionary in consumptions)}) is: {total_sum}\n")
+                print(f"The price of all the purchases (${', $'.join(str(dictionary['Price']) for dictionary in consumptions)}) is: ${total_sum}\n")
             case 5:
-                limit = set_limit()
+                limit = float(input('Please enter a limit you want to set: '))
+                print()
             case 6:
                 print('Exiting the program...')
                 break
