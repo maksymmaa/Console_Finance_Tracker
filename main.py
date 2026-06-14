@@ -55,7 +55,7 @@ def main():
                            '3. Filter by a category\n'
                            '4. Calculate money balance\n'
                            '5. Set a limit\n'
-                           '6. Exit the program\n\n'))1
+                           '6. Exit the program\n\n'))
         print()
 
         match choice:
